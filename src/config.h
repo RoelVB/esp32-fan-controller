@@ -33,10 +33,10 @@
      Target temperature: the target temperature will be tried to reach. The target temmperate can be provided via mqtt, via a touch display or both.
 */
 // --- Begin: list of presets. Choose exactly one. ---
-#define fan_controlledByMQTT
+// #define fan_controlledByMQTT
 //#define fan_controlledByTouch
 //#define fan_controlledByMQTTandTouch
-//#define climate_controlledByBME_targetByMQTT
+#define climate_controlledByBME_targetByMQTT
 //#define climate_controlledByBME_targetByTouch
 //#define climate_controlledByBME_targetByMQTTandTouch
 //#define climate_controlledByMQTT_targetByMQTT
@@ -159,6 +159,11 @@ static_assert(false, "You cannot have both \"#define useStandbyButton\" and \"#d
 #define TACHOUPDATECYCLE                     1000 // how often tacho speed shall be determined, in milliseconds
 #define NUMBEROFINTERRUPSINONESINGLEROTATION 2    // Number of interrupts ESP32 sees on tacho signal on a single fan rotation. All the fans I've seen trigger two interrups.
 
+// peltierPWM
+#define PELTIERPIN          GPIO_NUM_19
+#define PELTIERFREQ         100
+#define PELTIERCHANNEL      1
+
 // --- automatic temperature control --------------------------------------------------------------------------------------------------------
 
 // ifdef:  adaptive fan speed depending on actual temperature and target temperature
@@ -171,7 +176,7 @@ static_assert(false, "You cannot have both \"#define useStandbyButton\" and \"#d
 // initial target temperature on startup
 #define INITIALTARGETTEMPERATURE 27.0
 // Lowest pwm value the temperature controller should use to set fan speed. If you want the fan not to turn off, set a value so that fan always runs.
-#define PWMMINIMUMVALUE            120
+#define PWMMINIMUMVALUE            60
 #else
 // delta used when manually increasing or decreasing pwm
 #define PWMSTEP                    10

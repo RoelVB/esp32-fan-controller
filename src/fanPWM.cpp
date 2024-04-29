@@ -15,8 +15,10 @@ void updateMQTT_Screen_withNewMode(bool aModeIsOff, bool force);
 void initPWMfan(void){
   // configure LED PWM functionalitites
   ledcSetup(PWMCHANNEL, PWMFREQ, PWMRESOLUTION);
+  ledcSetup(PELTIERCHANNEL, PELTIERFREQ, PWMRESOLUTION);
   // attach the channel to the GPIO to be controlled
   ledcAttachPin(PWMPIN, PWMCHANNEL);
+  ledcAttachPin(PELTIERPIN, PELTIERCHANNEL);
 
   pwmValue = INITIALPWMVALUE;
   updateMQTT_Screen_withNewPWMvalue(pwmValue, true);
@@ -27,6 +29,7 @@ void initPWMfan(void){
 
 void updateFanSpeed(void){
   ledcWrite(PWMCHANNEL, pwmValue);
+  ledcWrite(PELTIERCHANNEL, pwmValue);
 }
 
 void updateMQTT_Screen_withNewPWMvalue(int aPWMvalue, bool force) {
